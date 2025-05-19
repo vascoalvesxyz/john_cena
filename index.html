@@ -1,13 +1,57 @@
 <html>
-	<head>
-		<title>problem?</title>
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-		<link rel="icon" href="favicon.ico" type="image/x-icon">
-	</head>
+  <head>
+    <title>problem?</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+  </head>
+  <style>
+html, body {
+  height: 100vh;
+  width: 100vw;
+  padding: 0px;
+  margin: 0px;
+}
 
-	<body>
-		<style>
-			body { background-image: url('favicon.ico');}
-		</style>
-	</body>
+body {
+  background-image: url('favicon.ico');
+  display: flex;
+  align-items: center;
+}
+
+#api {
+  font-weight: 600;
+  font-size: 3rem;
+  font-family: serif;
+  color: blue;
+  border: rgba(20,20,20, 0.5) 1px solid;
+  display: block;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+  </style>
+  <body>
+    <span id="api"></span>
+  </body>
+  <script>
+    async function getIP() {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        const ip = data.ip;  // Directly access the IP (no .value needed)
+        console.log(ip);     // Will log the actual IP string
+        return ip;
+      } catch (error) {
+        console.error('Error fetching IP:', error);
+        return null;
+      }
+    }
+
+    getIP().then(ip => {
+      if (ip) {
+        api.innerHTML = ip;
+      }
+    });
+
+  </script>
 </html>
